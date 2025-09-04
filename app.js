@@ -15,8 +15,7 @@ const flash = require('connect-flash');
 const passport = require('passport');
 const localStrategy = require('passport-local');
 const User = require('./models/user');
-const dbUrl = process.env.DB_URL;
-// const dbUrl = 'mongodb://localhost:27017/yelp-camp';
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const store = MongoStore.create({
@@ -154,6 +153,8 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render('error', {err});
 })
 
-app.listen(3000, (req, res) => {
-    console.log("SERVING ON PORT 3000!!!");
+const port = process.env.PORT || 3000;
+
+app.listen(port, (req, res) => {
+    console.log(`SERVING ON PORT ${port}!!!`);
 })
